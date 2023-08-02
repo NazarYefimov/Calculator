@@ -1,6 +1,4 @@
-package gui;
-
-import calculator.Calculator;
+package calculator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,14 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CalculatorGUI extends JFrame {
-    private JTextField displayField;
+    private JTextField displayTextField;
     private StringBuilder input;
 
     public CalculatorGUI() {
         input = new StringBuilder();
-        displayField = new JTextField(20);
-        displayField.setEditable(false);
-        displayField.setFont(new Font("Arial", Font.PLAIN, 20));
+        displayTextField = new JTextField(20);
+        displayTextField.setEditable(false);
+        displayTextField.setFont(new Font("Arial", Font.PLAIN, 20));
 
         JPanel buttonPanel = new JPanel(new GridLayout(5, 4, 5, 5));
 
@@ -34,13 +32,17 @@ public class CalculatorGUI extends JFrame {
         }
 
         setLayout(new BorderLayout());
-        add(displayField, BorderLayout.NORTH);
+        add(displayTextField, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.CENTER);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Calculator");
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    public String getDisplayText() {
+        return displayTextField.getText();
     }
 
     private class ButtonClickListener implements ActionListener {
@@ -50,10 +52,10 @@ public class CalculatorGUI extends JFrame {
                 calculateResult();
             } else if (command.equals("Clear")) {
                 input.setLength(0);
-                displayField.setText("");
+                displayTextField.setText("");
             } else {
                 input.append(" ").append(command);
-                displayField.setText(input.toString());
+                displayTextField.setText(input.toString());
             }
         }
     }
@@ -61,11 +63,11 @@ public class CalculatorGUI extends JFrame {
     private void calculateResult() {
         try {
             int result = new Calculator().eval(input.toString());
-            displayField.setText(String.valueOf(result));
+            displayTextField.setText(String.valueOf(result));
             input.setLength(0);
             input.append(result);
         } catch (ArithmeticException ex) {
-            displayField.setText("Error");
+            displayTextField.setText("Error");
             input.setLength(0);
         }
     }

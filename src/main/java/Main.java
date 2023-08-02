@@ -1,4 +1,4 @@
-import gui.CalculatorGUI;
+import calculator.CalculatorGUI;
 
 public class Main {
 
